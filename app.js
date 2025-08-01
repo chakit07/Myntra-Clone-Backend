@@ -10,7 +10,10 @@ const app = express();
 
 // ✅ Allow all origins or configure specific origin
 app.use(cors({
-  origin: 'http://localhost:5173', // Adjust based on your frontend origin
+  origin: [
+    'http://localhost:5173',                          // for local dev
+    'https://myntra-clone-frontend-teal.vercel.app'   // for deployed frontend
+  ],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true,
@@ -76,8 +79,8 @@ app.post("/api/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:5173/success", // or your deployed frontend URL
-      cancel_url: "http://localhost:5173/cancel",
+      success_url: "https://myntra-clone-frontend-teal.vercel.app/success",
+      cancel_url: "https://myntra-clone-frontend-teal.vercel.app/cancel",
     });
 
     res.json({ id: session.id });
